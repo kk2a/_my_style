@@ -1,0 +1,55 @@
+\usepackage{amsmath,amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{nccmath}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{colortbl}
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+\usepackage{bookmark}
+\usepackage[bottom]{footmisc}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage[toc,title,page]{appendix}
+\usepackage{listings,jvlisting}
+\renewcommand{\appendixname}{\textbf{Appendix} }
+
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  lineskip=-0.5ex
+}
+
+
+% 更新したらmktexlsrを実行しよう！！
+
+\theoremstyle{definition}
+\newtheorem{thm}{定理}[section]
+\newtheorem{lem}[thm]{補題}
+\newtheorem{cor}[thm]{系}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{pro}{問題}
+\newtheorem{conj}{予想}[section]
+\newtheorem*{sol}{解答}
+\newtheorem*{com}{コメント}
+\newtheorem*{clm}{Claim}
+\newtheorem{prt}{Part}
+
+\hypersetup{
+  hidelinks,
+}
+
+\def\zz{\mathbb{Z}}
+\def\qq{\mathbb{Q}}
+\def\rr{\mathbb{R}}
+\def\cc{\mathbb{C}}
