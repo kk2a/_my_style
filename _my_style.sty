@@ -15,6 +15,8 @@
 \usepackage[toc,title,page]{appendix}
 \usepackage{listings,jvlisting}
 \usepackage{float}
+\usepackage{enumitem}
+\usepackage{refcount}
 
 \renewcommand{\appendixname}{\textbf{Appendix} }
 
@@ -51,7 +53,20 @@
   hidelinks,
 }
 
-\def\zz{\mathbb{Z}}
-\def\qq{\mathbb{Q}}
-\def\rr{\mathbb{R}}
-\def\cc{\mathbb{C}}
+\def\zz{\mathbf{Z}}
+\def\qq{\mathbf{Q}}
+\def\rr{\mathbf{R}}
+\def\cc{\mathbf{C}}
+
+\newcommand{\rmone}{I}
+\newcommand{\rmtwo}{I\hspace{-1.2pt}I}
+\newcommand{\rmthree}{I\hspace{-1.2pt}I\hspace{-1.2pt}I}
+\newcommand{\rmfour}{I\hspace{-1.2pt}V}
+\newcommand{\rmfive}{V}
+\newcommand{\rmsix}{V\hspace{-1.2pt}I}
+\newcommand{\rmseven}{V\hspace{-1.2pt}I\hspace{-1.2pt}I}
+\newcommand{\rmeight}{V\hspace{-1.2pt}I\hspace{-1.2pt}I\hspace{-1.2pt}I}
+\newcommand{\rmnine}{I\hspace{-1.2pt}X}
+\newcommand{\rmten}{X}
+\newcommand{\niton}{\not \hspace{0.5 pt} \ni}
+
