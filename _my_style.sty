@@ -1,6 +1,4 @@
-\usepackage{amsmath,amsfonts}
-\usepackage{amssymb}
-\usepackage{amsthm}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{nccmath}
 \usepackage{bm}
 \usepackage{mathrsfs}
@@ -17,6 +15,8 @@
 \usepackage{float}
 \usepackage{enumitem}
 \usepackage{refcount}
+\usepackage{latexsym}
+\usepackage{mathtools}
 
 \renewcommand{\appendixname}{\textbf{Appendix} }
 
@@ -53,10 +53,11 @@
   hidelinks,
 }
 
-\def\zz{\mathbf{Z}}
-\def\qq{\mathbf{Q}}
-\def\rr{\mathbf{R}}
-\def\cc{\mathbf{C}}
+\newcommand{\nn}{\mathbf{N}}
+\newcommand{\zz}{\mathbf{Z}}
+\newcommand{\qq}{\mathbf{Q}}
+\newcommand{\rr}{\mathbf{R}}
+\newcommand{\cc}{\mathbf{C}}
 
 \newcommand{\mbf}[1]{\mathbf{#1}}
 \newcommand{\mrm}[1]{\mathrm{#1}}
@@ -87,3 +88,71 @@
 \newcommand{\rmten}{X}
 \newcommand{\niton}{\not \hspace{0.5 pt} \ni}
 
+
+\usepackage{xparse}
+
+\newcounter{MyAllCounter}
+\newcounter{MyAllCounterWithoutDef}
+
+\newcounter{MyTheoremCounter}
+\NewDocumentEnvironment{MyTheorem}{O{} O{\theMyTheoremCounter}}{%
+  \refstepcounter{MyTheoremCounter}%
+  \refstepcounter{MyAllCounter}%
+  \refstepcounter{MyAllCounterWithoutDef}%
+  \begin{tcolorbox}[colframe=blue,colback=blue!5]
+    \begin{thm}[#1]\label{thm:#2}%
+  }{%
+    \end{thm}\end{tcolorbox}
+  }
+  
+\newcounter{MyLemmaCounter}
+\NewDocumentEnvironment{MyLemma}{O{} O{\theMyLemmaCounter}}{%
+  \refstepcounter{MyLemmaCounter}%
+  \refstepcounter{MyAllCounter}%
+  \refstepcounter{MyAllCounterWithoutDef}%
+  \begin{tcolorbox}[colframe=red,colback=red!4]
+    \begin{lem}[#1]\label{lem:#2}%
+  }{%
+    \end{lem}\end{tcolorbox}
+  }
+
+\newcounter{MyPropositionCounter}
+\NewDocumentEnvironment{MyProposition}{O{} O{\theMyPropositionCounter}}{%
+  \refstepcounter{MyPropositionCounter}%
+  \refstepcounter{MyAllCounter}%
+  \refstepcounter{MyAllCounterWithoutDef}%
+  \begin{tcolorbox}[colframe=red,colback=red!4]
+    \begin{prop}[#1]\label{prop:#2}%
+  }{%
+    \end{prop}\end{tcolorbox}
+  }
+
+\newcounter{MyCorollaryCounter}
+\NewDocumentEnvironment{MyCorollary}{O{} O{\theMyCorollaryCounter}}{%
+  \refstepcounter{MyCorollaryCounter}%
+  \refstepcounter{MyAllCounter}%
+  \refstepcounter{MyAllCounterWithoutDef}%
+  \begin{tcolorbox}[colframe=red,colback=red!4]
+    \begin{cor}[#1]\label{cor:#2}%
+  }{%
+    \end{cor}\end{tcolorbox}
+  }
+
+\newcounter{MyClaimCounter}
+\NewDocumentEnvironment{MyClaim}{O{} O{\theMyClaimCounter}}{%
+  \refstepcounter{MyClaimCounter}%
+  \begin{tcolorbox}[colframe=black,colback=white]
+    \begin{clm}[#1]\label{clm:#2}%
+  }{%
+    \end{clm}\end{tcolorbox}
+  }
+
+\newcounter{MyDefinitionCounter}
+\NewDocumentEnvironment{MyDefinition}{O{} O{\theMyDefinitionCounter}}{%
+  \refstepcounter{MyDefinitionCounter}%
+  \refstepcounter{MyAllCounter}%
+  \begin{tcolorbox}[colframe=black,colback=white]
+    \begin{dfn}[#1]\label{dfn:#2}%
+  }{%
+    \end{dfn}\end{tcolorbox}
+  }

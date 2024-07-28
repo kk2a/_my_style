@@ -1,0 +1,84 @@
+{
+  "includes": {},
+  "macros": {
+    "nn": {},
+    "zz": {},
+    "qq": {},
+    "rr": {},
+    "cc": {},
+    "mbf{}": {
+      "snippet": "mbf{${1:arg1}}"
+    },
+    "mrm{}": {
+      "snippet": "mrm{${1:arg1}}"
+    },
+    "mcal{}": {
+      "snippet": "mcal{${1:arg1}}"
+    },
+    "mscr{}": {
+      "snippet": "mscr{${1:arg1}}"
+    },
+    "mfk{}": {
+      "snippet": "mfk{${1:arg1}}"
+    },
+    "tit{}": {
+      "snippet": "tit{${1:arg1}}"
+    },
+    "tbf{}": {
+      "snippet": "tbf{${1:arg1}}"
+    },
+    "flr{}": {
+      "snippet": "flr{${1:arg1}}"
+    },
+    "ceil{}": {
+      "snippet": "ceil{${1:arg1}}"
+    },
+    "paren{}": {
+      "snippet": "paren{${1:arg1}}"
+    },
+    "brac{}": {
+      "snippet": "brac{${1:arg1}}"
+    },
+    "set{}": {
+      "snippet": "set{${1:arg1}}"
+    },
+    "abs{}": {
+      "snippet": "abs{${1:arg1}}"
+    },
+    "norm{}": {
+      "snippet": "norm{${1:arg1}}"
+    },
+    "inner{}": {
+      "snippet": "inner{${1:arg1}}"
+    },
+    "rmone": {},
+    "rmtwo": {},
+    "rmthree": {},
+    "rmfour": {},
+    "rmfive": {},
+    "rmsix": {},
+    "rmseven": {},
+    "rmeight": {},
+    "rmnine": {},
+    "rmten": {},
+    "niton": {}
+  },
+  "envs": {
+    "MyTheorem": {},
+    "MyLemma": {},
+    "MyProposition": {},
+    "MyCorollary": {},
+    "MyClaim": {},
+    "MyDefinition": {},
+    "thm": {},
+    "lem": {},
+    "cor": {},
+    "prop": {},
+    "dfn": {},
+    "pro": {},
+    "conj": {},
+    "prt": {}
+  },
+  "options": [],
+  "keyvals": []
+}
