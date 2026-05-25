@@ -6,7 +6,9 @@
 \usepackage{graphics}
 \usepackage{hyperref}
 \usepackage{tcolorbox}
+\tcbuselibrary{breakable}
 \usepackage{bookmark}
+\usepackage[nameinlink,noabbrev]{cleveref}
 \usepackage[bottom]{footmisc}
 \usepackage{xcolor}
 \usepackage{longtable}
@@ -18,7 +20,12 @@
 \usepackage{latexsym}
 \usepackage{mathtools}
 
+\usepackage{luatexja-fontspec}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Schola}
+
 \renewcommand{\appendixname}{\textbf{Appendix} }
+\renewcommand{\thefootnote}{ \arabic{footnote}}
 
 \lstset{
   basicstyle={\ttfamily},
@@ -34,17 +41,14 @@
 }
 
 
-% 更新したらmktexlsrを実行しよう！！
-
 \theoremstyle{definition}
-\newtheorem{thm}{定理}[section]
-\newtheorem{lem}[thm]{補題}
-\newtheorem{cor}[thm]{系}
-\newtheorem{prop}[thm]{命題}
-\newtheorem{dfn}[thm]{定義}
 \newtheorem{pro}{問題}
+\newtheorem*{pro*}{問題}
+\newtheorem{proe}{Problem}[pro]
+\newtheorem*{proe*}{Problem}
 \newtheorem{conj}{予想}[section]
 \newtheorem*{sol}{解答}
+\newtheorem*{sole}{Solution}
 \newtheorem*{com}{コメント}
 \newtheorem*{clm}{Claim}
 \newtheorem{prt}{Part}
@@ -52,6 +56,51 @@
 \hypersetup{
   hidelinks,
 }
+
+\newcounter{MyAllCounter}[section]
+\newcounter{MyAllCounterWithoutDef}[section]
+
+\renewcommand{\theMyAllCounter}{\thesection.\arabic{MyAllCounter}}
+\renewcommand{\theMyAllCounterWithoutDef}{\thesection.\arabic{MyAllCounterWithoutDef}}
+
+\newcounter{MyTheoremCounter}[section]
+\newcounter{MyLemmaCounter}[section]
+\newcounter{MyPropositionCounter}[section]
+\newcounter{MyCorollaryCounter}[section]
+\newcounter{MyDefinitionCounter}[section]
+\newcounter{MyClaimCounter}[section]
+
+\renewcommand{\theMyTheoremCounter}{\theMyAllCounter}
+\renewcommand{\theMyLemmaCounter}{\theMyAllCounter}
+\renewcommand{\theMyPropositionCounter}{\theMyAllCounter}
+\renewcommand{\theMyCorollaryCounter}{\theMyAllCounter}
+\renewcommand{\theMyDefinitionCounter}{\theMyAllCounter}
+\renewcommand{\theMyClaimCounter}{\thesection.\arabic{MyClaimCounter}}
+
+\crefname{MyTheoremCounter}{定理}{定理}
+\Crefname{MyTheoremCounter}{定理}{定理}
+\crefname{MyLemmaCounter}{補題}{補題}
+\Crefname{MyLemmaCounter}{補題}{補題}
+\crefname{MyPropositionCounter}{命題}{命題}
+\Crefname{MyPropositionCounter}{命題}{命題}
+\crefname{MyCorollaryCounter}{系}{系}
+\Crefname{MyCorollaryCounter}{系}{系}
+\crefname{MyDefinitionCounter}{定義}{定義}
+\Crefname{MyDefinitionCounter}{定義}{定義}
+\crefname{MyClaimCounter}{Claim}{Claims}
+\Crefname{MyClaimCounter}{Claim}{Claims}
+
+\crefname{equation}{式}{式}
+\Crefname{equation}{式}{式}
+
+\crefformat{section}{#2第#1節#3}
+\Crefformat{section}{#2第#1節#3}
+
+\newcommand{\crefpairconjunction}{と}
+\newcommand{\crefrangeconjunction}{から}
+\newcommand{\crefmiddleconjunction}{，}
+\newcommand{\creflastconjunction}{，および}
+
 
 \newcommand{\N}{\mathbf{N}}
 \newcommand{\Z}{\mathbf{Z}}
@@ -80,71 +129,70 @@
 \newcommand{\rmten}{X}
 \newcommand{\niton}{\not \hspace{0.5 pt} \ni}
 
-
 \usepackage{xparse}
 
-\newcounter{MyAllCounter}
-\newcounter{MyAllCounterWithoutDef}
+\newcommand{\MyStatementTitle}[3]{%
+  \textbf{#1\ #2%
+  \if\relax\detokenize{#3}\relax
+  \else
+    \ (#3)%
+  \fi
+  .}
+}
 
-\newcounter{MyTheoremCounter}
-\NewDocumentEnvironment{MyTheorem}{O{} O{\theMyTheoremCounter}}{%
+\NewDocumentEnvironment{MyTheorem}{O{} O{\arabic{MyTheoremCounter}}}{%
+  \stepcounter{MyAllCounter}%
+  \stepcounter{MyAllCounterWithoutDef}%
   \refstepcounter{MyTheoremCounter}%
-  \refstepcounter{MyAllCounter}%
-  \refstepcounter{MyAllCounterWithoutDef}%
-  \begin{tcolorbox}[colframe=blue,colback=blue!5]
-    \begin{thm}[#1]\label{thm:#2}%
+  \begin{tcolorbox}[colframe=blue,colback=blue!5,breakable,before skip=10pt,after skip=10pt]
+    \MyStatementTitle{定理}{\theMyAllCounter}{#1}\label{thm:#2}\ 
   }{%
-    \end{thm}\end{tcolorbox}
+    \end{tcolorbox}
   }
-  
-\newcounter{MyLemmaCounter}
-\NewDocumentEnvironment{MyLemma}{O{} O{\theMyLemmaCounter}}{%
+
+\NewDocumentEnvironment{MyLemma}{O{} O{\arabic{MyLemmaCounter}}}{%
+  \stepcounter{MyAllCounter}%
+  \stepcounter{MyAllCounterWithoutDef}%
   \refstepcounter{MyLemmaCounter}%
-  \refstepcounter{MyAllCounter}%
-  \refstepcounter{MyAllCounterWithoutDef}%
-  \begin{tcolorbox}[colframe=red,colback=red!4]
-    \begin{lem}[#1]\label{lem:#2}%
+  \begin{tcolorbox}[colframe=red,colback=red!4,breakable,before skip=10pt,after skip=10pt]
+    \MyStatementTitle{補題}{\theMyAllCounter}{#1}\label{lem:#2}\ 
   }{%
-    \end{lem}\end{tcolorbox}
+    \end{tcolorbox}
   }
 
-\newcounter{MyPropositionCounter}
-\NewDocumentEnvironment{MyProposition}{O{} O{\theMyPropositionCounter}}{%
+\NewDocumentEnvironment{MyProposition}{O{} O{\arabic{MyPropositionCounter}}}{%
+  \stepcounter{MyAllCounter}%
+  \stepcounter{MyAllCounterWithoutDef}%
   \refstepcounter{MyPropositionCounter}%
-  \refstepcounter{MyAllCounter}%
-  \refstepcounter{MyAllCounterWithoutDef}%
-  \begin{tcolorbox}[colframe=red,colback=red!4]
-    \begin{prop}[#1]\label{prop:#2}%
+  \begin{tcolorbox}[colframe=red,colback=red!4,breakable,before skip=10pt,after skip=10pt]
+    \MyStatementTitle{命題}{\theMyAllCounter}{#1}\label{prop:#2}\ 
   }{%
-    \end{prop}\end{tcolorbox}
+    \end{tcolorbox}
   }
 
-\newcounter{MyCorollaryCounter}
-\NewDocumentEnvironment{MyCorollary}{O{} O{\theMyCorollaryCounter}}{%
+\NewDocumentEnvironment{MyCorollary}{O{} O{\arabic{MyCorollaryCounter}}}{%
+  \stepcounter{MyAllCounter}%
+  \stepcounter{MyAllCounterWithoutDef}%
   \refstepcounter{MyCorollaryCounter}%
-  \refstepcounter{MyAllCounter}%
-  \refstepcounter{MyAllCounterWithoutDef}%
-  \begin{tcolorbox}[colframe=red,colback=red!4]
-    \begin{cor}[#1]\label{cor:#2}%
+  \begin{tcolorbox}[colframe=red,colback=red!4,breakable,before skip=10pt,after skip=10pt]
+    \MyStatementTitle{系}{\theMyAllCounter}{#1}\label{cor:#2}\ 
   }{%
-    \end{cor}\end{tcolorbox}
+    \end{tcolorbox}
   }
 
-\newcounter{MyClaimCounter}
-\NewDocumentEnvironment{MyClaim}{O{} O{\theMyClaimCounter}}{%
+\NewDocumentEnvironment{MyClaim}{O{} O{\arabic{MyClaimCounter}}}{%
   \refstepcounter{MyClaimCounter}%
-  \begin{tcolorbox}[colframe=black,colback=white]
-    \begin{clm}[#1]\label{clm:#2}%
+  \begin{tcolorbox}[colframe=black,colback=white,breakable,before skip=10pt,after skip=10pt]
+    \MyStatementTitle{Claim}{\theMyClaimCounter}{#1}\label{clm:#2}\ 
   }{%
-    \end{clm}\end{tcolorbox}
+    \end{tcolorbox}
   }
 
-\newcounter{MyDefinitionCounter}
-\NewDocumentEnvironment{MyDefinition}{O{} O{\theMyDefinitionCounter}}{%
+\NewDocumentEnvironment{MyDefinition}{O{} O{\arabic{MyDefinitionCounter}}}{%
+  \stepcounter{MyAllCounter}%
   \refstepcounter{MyDefinitionCounter}%
-  \refstepcounter{MyAllCounter}%
-  \begin{tcolorbox}[colframe=black,colback=white]
-    \begin{dfn}[#1]\label{dfn:#2}%
+  \begin{tcolorbox}[colframe=black,colback=white,breakable,before skip=10pt,after skip=10pt]
+    \MyStatementTitle{定義}{\theMyAllCounter}{#1}\label{dfn:#2}\ 
   }{%
-    \end{dfn}\end{tcolorbox}
+    \end{tcolorbox}
   }
