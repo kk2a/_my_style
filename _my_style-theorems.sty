@@ -1,0 +1,118 @@
+\theoremstyle{definition}
+\newtheorem{pro}{問題}
+\newtheorem*{pro*}{問題}
+\newtheorem{proe}{Problem}[pro]
+\newtheorem*{proe*}{Problem}
+\newtheorem{conj}{予想}[section]
+\newtheorem*{sol}{解答}
+\newtheorem*{sole}{Solution}
+\newtheorem*{com}{コメント}
+\newtheorem*{clm}{Claim}
+\newtheorem{prt}{Part}
+
+
+\newcounter{MyAllCounter}[section]
+\newcounter{MyAllCounterWithoutDef}[section]
+
+\renewcommand{\theMyAllCounter}{\thesection.\arabic{MyAllCounter}}
+\renewcommand{\theMyAllCounterWithoutDef}{\thesection.\arabic{MyAllCounterWithoutDef}}
+
+\newcounter{MyTheoremCounter}[section]
+\newcounter{MyLemmaCounter}[section]
+\newcounter{MyPropositionCounter}[section]
+\newcounter{MyCorollaryCounter}[section]
+\newcounter{MyDefinitionCounter}[section]
+\newcounter{MyClaimCounter}[section]
+
+\renewcommand{\theMyTheoremCounter}{\theMyAllCounter}
+\renewcommand{\theMyLemmaCounter}{\theMyAllCounter}
+\renewcommand{\theMyPropositionCounter}{\theMyAllCounter}
+\renewcommand{\theMyCorollaryCounter}{\theMyAllCounter}
+\renewcommand{\theMyDefinitionCounter}{\theMyAllCounter}
+\renewcommand{\theMyClaimCounter}{\thesection.\arabic{MyClaimCounter}}
+
+\crefname{MyTheoremCounter}{定理}{定理}
+\Crefname{MyTheoremCounter}{定理}{定理}
+\crefname{MyLemmaCounter}{補題}{補題}
+\Crefname{MyLemmaCounter}{補題}{補題}
+\crefname{MyPropositionCounter}{命題}{命題}
+\Crefname{MyPropositionCounter}{命題}{命題}
+\crefname{MyCorollaryCounter}{系}{系}
+\Crefname{MyCorollaryCounter}{系}{系}
+\crefname{MyDefinitionCounter}{定義}{定義}
+\Crefname{MyDefinitionCounter}{定義}{定義}
+\crefname{MyClaimCounter}{Claim}{Claims}
+\Crefname{MyClaimCounter}{Claim}{Claims}
+
+\crefname{equation}{式}{式}
+\Crefname{equation}{式}{式}
+
+\crefformat{section}{#2第#1節#3}
+\Crefformat{section}{#2第#1節#3}
+
+\newcommand{\crefpairconjunction}{と}
+\newcommand{\crefrangeconjunction}{から}
+\newcommand{\crefmiddleconjunction}{，}
+\newcommand{\creflastconjunction}{，および}
+
+
+\makeatletter
+\newcommand{\my@statementtitle}[3]{%
+  \textbf{#1\ #2%
+  \if\relax\detokenize{#3}\relax
+  \else
+    \ (#3)%
+  \fi
+  .}
+}
+\newcommand{\MyStatementTitle}[3]{\my@statementtitle{#1}{#2}{#3}}
+
+\newcommand{\my@beginstatement}[8]{%
+  #1%
+  \refstepcounter{#2}%
+  \begin{tcolorbox}[colframe=#7,colback=#8,breakable,before skip=10pt,after skip=10pt]
+    \my@statementtitle{#3}{#4}{#5}\label{#6}\space
+}
+
+\newcommand{\my@endstatement}{%
+  \end{tcolorbox}
+}
+
+\NewDocumentEnvironment{MyTheorem}{O{} O{\arabic{MyTheoremCounter}}}{%
+  \my@beginstatement{%
+    \stepcounter{MyAllCounter}%
+    \stepcounter{MyAllCounterWithoutDef}%
+  }{MyTheoremCounter}{定理}{\theMyAllCounter}{#1}{thm:#2}{blue}{blue!5}%
+}{\my@endstatement}
+
+\NewDocumentEnvironment{MyLemma}{O{} O{\arabic{MyLemmaCounter}}}{%
+  \my@beginstatement{%
+    \stepcounter{MyAllCounter}%
+    \stepcounter{MyAllCounterWithoutDef}%
+  }{MyLemmaCounter}{補題}{\theMyAllCounter}{#1}{lem:#2}{red}{red!4}%
+}{\my@endstatement}
+
+\NewDocumentEnvironment{MyProposition}{O{} O{\arabic{MyPropositionCounter}}}{%
+  \my@beginstatement{%
+    \stepcounter{MyAllCounter}%
+    \stepcounter{MyAllCounterWithoutDef}%
+  }{MyPropositionCounter}{命題}{\theMyAllCounter}{#1}{prop:#2}{red}{red!4}%
+}{\my@endstatement}
+
+\NewDocumentEnvironment{MyCorollary}{O{} O{\arabic{MyCorollaryCounter}}}{%
+  \my@beginstatement{%
+    \stepcounter{MyAllCounter}%
+    \stepcounter{MyAllCounterWithoutDef}%
+  }{MyCorollaryCounter}{系}{\theMyAllCounter}{#1}{cor:#2}{red}{red!4}%
+}{\my@endstatement}
+
+\NewDocumentEnvironment{MyClaim}{O{} O{\arabic{MyClaimCounter}}}{%
+  \my@beginstatement{}{MyClaimCounter}{Claim}{\theMyClaimCounter}{#1}{clm:#2}{black}{white}%
+}{\my@endstatement}
+
+\NewDocumentEnvironment{MyDefinition}{O{} O{\arabic{MyDefinitionCounter}}}{%
+  \my@beginstatement{%
+    \stepcounter{MyAllCounter}%
+  }{MyDefinitionCounter}{定義}{\theMyAllCounter}{#1}{dfn:#2}{black}{white}%
+}{\my@endstatement}
+\makeatother
